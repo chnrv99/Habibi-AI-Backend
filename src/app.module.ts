@@ -10,6 +10,7 @@ import { UsersService } from './users/users.service';
 import { UsersController } from './users/users.controller';
 import { Model } from 'mongoose';
 import { User, UserSchema } from './users/schemas/user.schema';
+import { ChatModule } from './chat/chat.module';
 
 
 @Module({
@@ -21,6 +22,7 @@ import { User, UserSchema } from './users/schemas/user.schema';
     signOptions: { expiresIn: '1d' },
   }),
     UsersModule,
+    ChatModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService, GoogleStrategy, JwtStrategy, UsersService],
