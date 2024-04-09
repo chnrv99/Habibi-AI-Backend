@@ -23,7 +23,7 @@ export class AppService {
     }
 
     const jwt = this.jwtService.sign(payload);
-    const user = await this.usersService.create(req.user.email);
+    const user = await this.usersService.create(payload);
 
     return {
       message: 'User information from google',
