@@ -34,6 +34,10 @@ Habibi AI utilizes MongoDB to store user data. The schema for user data is as fo
 - **email**: string
 - **picture**: string (URL for Google profile picture)
 
+## Error Handline
+
+We are using varous Pipes, Decoratores and DTOs for typechecking, and accordingly sending the responses.
+
 ## Getting Started
 
 To start using Habibi AI, follow the API routes and integrate with the provided endpoints. Ensure to handle authentication securely, especially for the protected `/chat` endpoint. Use the MongoDB schema to store and retrieve user data efficiently.
