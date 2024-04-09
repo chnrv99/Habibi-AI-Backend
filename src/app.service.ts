@@ -23,12 +23,14 @@ export class AppService {
     }
 
     const jwt = this.jwtService.sign(payload);
-    const user = await this.usersService.create(payload);
+    if (await this.usersService.findOne(req.user.email)) {
+      console.log('User already exists')
+    }
+    else{
+      const user = await this.usersService.create(payload);
+      console.log('User created', user)
+    }
 
-    return {
-      message: 'User information from google',
-      user: req.user,
-      jwt,
-    };
+    return jwt;
   }
 }
