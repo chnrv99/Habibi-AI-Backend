@@ -6,17 +6,23 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsersService } from './users/users.service';
+import { UsersController } from './users/users.controller';
+import { Model } from 'mongoose';
+import { User, UserSchema } from './users/schemas/user.schema';
 
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGO_URI),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
-    }),
+  imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+
+  MongooseModule.forRoot(process.env.MONGO_URI),
+  JwtModule.register({
+    secret: process.env.JWT_SECRET,
+    signOptions: { expiresIn: '1d' },
+  }),
     UsersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, GoogleStrategy, JwtStrategy],
+  controllers: [AppController, UsersController],
+  providers: [AppService, GoogleStrategy, JwtStrategy, UsersService],
 })
-export class AppModule {}
+export class AppModule { }

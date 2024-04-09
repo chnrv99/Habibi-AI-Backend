@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { UsersService } from './users/users.service';
 @Injectable()
 export class AppService {
-  constructor(private jwtService: JwtService) {}
+  constructor(private jwtService: JwtService,
+    private usersService: UsersService
+  ) {}
   getHello(): string {
     return 'Hello World!';
   }
 
-  googleLogin(req) {
+  async googleLogin(req) {
     if (!req.user) {
       return 'No user from google';
     }
@@ -20,6 +23,7 @@ export class AppService {
     }
 
     const jwt = this.jwtService.sign(payload);
+    const user = await this.usersService.create(req.user.email);
 
     return {
       message: 'User information from google',
